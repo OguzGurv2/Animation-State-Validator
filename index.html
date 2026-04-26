@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Lottie + Rive Test Environment for Web</title>
+</head>
+
+<body>
+    <main class="page">
+        <header class="page-header">
+            <h1>Lottie + Rive Test Environment for Web</h1>
+            <p>Load animation files locally or from URLs and test playback controls.</p>
+        </header>
+
+        <section class="grid">
+            <article class="panel">
+                <h2>Lottie</h2>
+                <div class="controls">
+                    <div class="anim-meta" aria-live="polite">
+                        <div class="meta-block">
+                            <span class="meta-title">Animations</span>
+                            <div id="lottieAnimChips" class="chip-row"></div>
+                        </div>
+                        <div class="meta-block">
+                            <span class="meta-title">States</span>
+                            <div id="lottieStatesChips" class="chip-row"></div>
+                        </div>
+                    </div>
+
+                    <button id="openAddLottieModal" type="button" class="add-anim-btn">
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i> Add Animation
+                    </button>
+                </div>
+                <div id="lottieContainer" class="viewport" aria-label="Lottie viewport"></div>
+                <div class="actions">
+                    <button id="lottiePlay" type="button">Play</button>
+                    <button id="lottiePause" type="button">Pause</button>
+                    <button id="lottieStop" type="button">Stop</button>
+                </div>
+                <p id="lottieStatus" class="status">No Lottie loaded</p>
+            </article>
+
+            <article class="panel">
+                <h2>Rive</h2>
+                <div class="controls">
+                    <div class="anim-meta" aria-live="polite">
+                        <div class="meta-block">
+                            <span class="meta-title">Animations</span>
+                            <div id="riveAnimChips" class="chip-row"></div>
+                        </div>
+                        <div class="meta-block">
+                            <span class="meta-title">States</span>
+                            <div id="riveStatesChips" class="chip-row"></div>
+                        </div>
+                    </div>
+
+                    <button id="openRiveFilePicker" type="button" class="add-anim-btn">
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i> Add Animation
+                    </button>
+                    <input id="riveFile" class="visually-hidden-input" type="file" accept=".riv" />
+                </div>
+                <canvas id="riveCanvas" class="viewport" width="640" height="360" aria-label="Rive viewport"></canvas>
+                <div class="actions">
+                    <button id="rivePlay" type="button">Play</button>
+                    <button id="rivePause" type="button">Pause</button>
+                    <button id="riveStop" type="button">Stop</button>
+                </div>
+                <p id="riveStatus" class="status">No Rive loaded</p>
+            </article>
+        </section>
+    </main>
+
+    <dialog id="addLottieModal" class="modal" aria-labelledby="addLottieModalTitle">
+        <div class="modal-panel">
+            <header class="modal-header">
+                <h3 id="addLottieModalTitle">Add Lottie Animation</h3>
+                <button id="closeAddLottieModal" class="modal-close-btn" type="button" aria-label="Close">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+            </header>
+            <div class="modal-body">
+                <div class="modal-field modal-name-field">
+                    <label for="modalAnimName">Animation name</label>
+                    <input id="modalAnimName" type="text" placeholder="e.g. select-advanced-plan" />
+                </div>
+                <div class="modal-field">
+                    <span class="modal-field-label">States</span>
+                    <div id="modalStatesList" class="modal-states-list"></div>
+                    <button id="modalAddStateRow" type="button" class="modal-add-state-btn">
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i> Add State
+                    </button>
+                </div>
+                <p id="modalError" class="modal-error" hidden></p>
+            </div>
+            <footer class="modal-footer">
+                <button id="cancelAddLottieModal" type="button" class="modal-btn-cancel">Cancel</button>
+                <button id="confirmAddLottieModal" type="button" class="modal-btn-confirm">Add Animation</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
