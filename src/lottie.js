@@ -19,6 +19,9 @@ import {
 } from "./helpers/preset-utils";
 import { createLottieModalController } from "./modal";
 
+/**
+ * Initialize the full Lottie feature: presets, dynamic additions, chips, and controls.
+ */
 export function initLottieFeature(elements) {
   const {
     lottieContainer,
@@ -55,6 +58,7 @@ export function initLottieFeature(elements) {
   const lottiePresetButtons = new Map();
   const lottieAnimButtons = new Map();
 
+  // Preset bundle shipped in this repository.
   const LOTTIE_PRESET_ANIM_NAME = "select-advanced-plan";
   const LOTTIE_PRESET_STATE_FILES = [
     "idle.json",
@@ -91,6 +95,7 @@ export function initLottieFeature(elements) {
 
   let currentLottie = null;
 
+  /** Update status text and state marker in the Lottie panel. */
   function updateStatus(message, isError = false) {
     if (!lottieStatus) {
       return;
@@ -100,6 +105,7 @@ export function initLottieFeature(elements) {
     lottieStatus.dataset.state = isError ? "error" : "ok";
   }
 
+  /** Re-render selected chip styles for animation and state selections. */
   function renderLottiePresetSelection() {
     toggleButtonMapSelection(
       lottieAnimButtons,
@@ -108,6 +114,7 @@ export function initLottieFeature(elements) {
     toggleButtonMapSelection(lottiePresetButtons, lottieUiState.selectedPreset);
   }
 
+  /** Re-render play/pause/stop button states. */
   function renderLottieControls() {
     renderPlaybackControls({
       controlButtons: lottieControlButtons,
@@ -116,11 +123,13 @@ export function initLottieFeature(elements) {
     });
   }
 
+  /** Update playback state in memory and reflect it in UI controls. */
   function updateLottiePlaybackState(nextState) {
     lottieUiState.playback = nextState;
     renderLottieControls();
   }
 
+  /** Normalize status messages based on source prefixes used by loaders. */
   function setLottieStatusForSource(sourceLabel) {
     if (sourceLabel.startsWith("preset:")) {
       const presetFile = sourceLabel.replace("preset:", "").trim();
@@ -138,6 +147,7 @@ export function initLottieFeature(elements) {
     updateStatus(`Loaded Lottie from ${sourceLabel}`);
   }
 
+  /** Return idle-first preset for the given animation, if any. */
   function getPreferredPresetForAnimation(animName) {
     return getPreferredPresetFromDefinitions(
       LOTTIE_PRESET_DEFINITIONS,
@@ -145,10 +155,14 @@ export function initLottieFeature(elements) {
     );
   }
 
+  /** Resolve global default preset (first animation, idle-first). */
   function getDefaultPresetSelection() {
     return getDefaultPresetFromDefinitions(LOTTIE_PRESET_DEFINITIONS);
   }
 
+  /**
+   * Replace current Lottie instance and load new JSON animation data.
+   */
   async function loadLottieAnimation(animationData, sourceLabel, options = {}) {
     try {
       if (currentLottie) {
@@ -181,6 +195,7 @@ export function initLottieFeature(elements) {
     }
   }
 
+  /** Load one named preset and rebuild visible state metadata chips. */
   async function loadLottiePreset(presetName) {
     const definition = LOTTIE_PRESET_DEFINITIONS[presetName];
     if (!definition) {
@@ -205,6 +220,9 @@ export function initLottieFeature(elements) {
     });
   }
 
+  /**
+   * Render animation/state chips in readonly or interactive mode.
+   */
   function setLottieAnimMeta(
     animName,
     stateFiles,
@@ -284,6 +302,7 @@ export function initLottieFeature(elements) {
     renderLottiePresetSelection();
   }
 
+  /** Ensure a Lottie instance exists before playback actions. */
   function ensureLottieLoaded() {
     if (!currentLottie) {
       updateStatus("Load a Lottie animation first", true);
@@ -293,6 +312,7 @@ export function initLottieFeature(elements) {
     return true;
   }
 
+  /** Delete an animation and keep the UI consistent with remaining data. */
   function deleteLottieAnimation(animName) {
     const wasSelected = lottieUiState.selectedAnimation === animName;
     for (const key of Object.keys(LOTTIE_PRESET_DEFINITIONS)) {
@@ -344,6 +364,7 @@ export function initLottieFeature(elements) {
     }
   }
 
+  /** Delete one preset state and move selection to a sensible fallback. */
   function deleteLottieState(presetKey, animName) {
     const definition = LOTTIE_PRESET_DEFINITIONS[presetKey];
     if (!definition) {
@@ -373,6 +394,7 @@ export function initLottieFeature(elements) {
     }
   }
 
+  // Modal callback validates and imports local JSON files into runtime presets.
   const modalController = createLottieModalController({
     addLottieModalEl,
     closeAddLottieModalBtn,

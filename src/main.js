@@ -2,6 +2,7 @@ import "./style.css";
 import { initLottieFeature } from "./lottie";
 import { initRiveFeature } from "./rive";
 
+// Wire all DOM nodes required by the Lottie feature into its initializer.
 initLottieFeature({
   lottieContainer: document.querySelector("#lottieContainer"),
   lottieStatus: document.querySelector("#lottieStatus"),
@@ -21,6 +22,7 @@ initLottieFeature({
   modalErrorEl: document.querySelector("#modalError"),
 });
 
+// Wire all DOM nodes required by the Rive feature into its initializer.
 initRiveFeature({
   riveCanvas: document.querySelector("#riveCanvas"),
   riveFileInput: document.querySelector("#riveFile"),

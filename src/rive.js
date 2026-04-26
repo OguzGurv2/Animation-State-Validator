@@ -21,6 +21,9 @@ import {
   getPreferredPresetFromDefinitions,
 } from "./helpers/preset-utils";
 
+/**
+ * Initialize the full Rive feature: preset handling, file loading, chips, and controls.
+ */
 export function initRiveFeature(elements) {
   const {
     riveCanvas,
@@ -50,6 +53,7 @@ export function initRiveFeature(elements) {
   const rivePresetButtons = new Map();
   const riveAnimButtons = new Map();
 
+  // Preset mapping uses actionName values as semantic quick actions.
   const RIVE_PRESET_ANIM_NAME = "cart-icon-final";
   const RIVE_PRESET_FILE_NAME = "cart-icon-final.riv";
   const RIVE_PRESET_DEFINITIONS = {
@@ -77,6 +81,7 @@ export function initRiveFeature(elements) {
   let activeRiveObjectUrl = null;
   let riveLoadToken = 0;
 
+  /** Update status text and state marker in the Rive panel. */
   function updateStatus(message, isError = false) {
     if (!riveStatus) {
       return;
@@ -86,11 +91,13 @@ export function initRiveFeature(elements) {
     riveStatus.dataset.state = isError ? "error" : "ok";
   }
 
+  /** Update playback state and force a control re-render. */
   function updateRivePlaybackState(nextState) {
     riveUiState.playback = nextState;
     renderRiveControls();
   }
 
+  /** Render selection and playback control state for Rive panel. */
   function renderRiveControls() {
     toggleButtonMapSelection(riveAnimButtons, riveUiState.selectedAnimation);
     toggleButtonMapSelection(rivePresetButtons, riveUiState.selectedPreset);
@@ -101,20 +108,24 @@ export function initRiveFeature(elements) {
     });
   }
 
+  /** Return idle-first preset key for the provided animation name. */
   function getPreferredRivePresetForAnimation(animName) {
     return getPreferredPresetFromDefinitions(RIVE_PRESET_DEFINITIONS, animName);
   }
 
+  /** Resolve global default Rive preset (first animation, idle-first). */
   function getDefaultRivePresetSelection() {
     return getDefaultPresetFromDefinitions(RIVE_PRESET_DEFINITIONS);
   }
 
+  /** Gather the state file labels currently registered for an animation. */
   function getRiveStateFilesForAnimation(animName) {
     return Object.values(RIVE_PRESET_DEFINITIONS)
       .filter((definition) => definition.animationName === animName)
       .map((definition) => definition.fileName);
   }
 
+  // Resetting width/height clears the 2D/WebGL drawing buffer reliably.
   function clearRiveCanvas() {
     if (!riveCanvas) {
       return;
@@ -126,6 +137,7 @@ export function initRiveFeature(elements) {
     riveCanvas.height = height;
   }
 
+  /** Dispose runtime instance, revoke object URL, and clear canvas surface. */
   function disposeRive() {
     if (currentRive) {
       currentRive.cleanup();
@@ -140,6 +152,7 @@ export function initRiveFeature(elements) {
     clearRiveCanvas();
   }
 
+  /** Render animation and state chips in readonly or interactive mode. */
   function setRiveAnimMeta(
     animName,
     stateFiles,
@@ -204,6 +217,7 @@ export function initRiveFeature(elements) {
     renderRiveControls();
   }
 
+  /** Compute canvas center for synthetic pointer/mouse interactions. */
   function getRiveCanvasCenter() {
     if (!riveCanvas) {
       return null;
@@ -216,6 +230,7 @@ export function initRiveFeature(elements) {
     };
   }
 
+  /** Dispatch pointer events with normalized defaults used by quick actions. */
   function dispatchRivePointerEvent(type, init = {}) {
     if (!riveCanvas) {
       return;
@@ -246,6 +261,7 @@ export function initRiveFeature(elements) {
     riveCanvas.dispatchEvent(new MouseEvent(type, baseInit));
   }
 
+  /** Dispatch mouse events for engines/listeners that depend on mouse APIs. */
   function dispatchRiveMouseEvent(type, init = {}) {
     if (!riveCanvas) {
       return;
@@ -268,6 +284,9 @@ export function initRiveFeature(elements) {
     );
   }
 
+  /**
+   * Try to trigger Hover/Idle/Click using synthetic pointer+mouse events.
+   */
   function runRivePointerQuickAction(actionName) {
     if (!riveCanvas) {
       return false;
@@ -301,6 +320,7 @@ export function initRiveFeature(elements) {
     return false;
   }
 
+  /** Find a state machine input by partial term match across all machines. */
   function matchRiveInput(term) {
     if (!currentRive) {
       return null;
@@ -320,6 +340,7 @@ export function initRiveFeature(elements) {
     return null;
   }
 
+  /** Ensure runtime instance exists before playback or action operations. */
   function ensureRiveLoaded() {
     if (!currentRive) {
       updateStatus("Load a Rive animation first", true);
@@ -329,6 +350,10 @@ export function initRiveFeature(elements) {
     return true;
   }
 
+  /**
+   * Apply semantic actions in priority order:
+   * 1) state machine input, 2) animation name, 3) pointer simulation fallback.
+   */
   function applyRiveQuickAction(actionName) {
     if (!ensureRiveLoaded()) {
       return;
@@ -384,6 +409,7 @@ export function initRiveFeature(elements) {
     );
   }
 
+  /** Resolve source into ArrayBuffer when possible, otherwise keep src URL. */
   async function resolveRiveSource(source) {
     if (source instanceof ArrayBuffer) {
       return { buffer: source };
@@ -406,6 +432,10 @@ export function initRiveFeature(elements) {
     }
   }
 
+  /**
+   * Load a Rive file/source and guard against stale async completions
+   * using a monotonic token.
+   */
   async function loadRiveAnimation(source, sourceLabel, options = {}) {
     const hasPresetSelection = Boolean(
       options.animationName || options.presetName,
@@ -474,6 +504,7 @@ export function initRiveFeature(elements) {
     }
   }
 
+  /** Load one preset and apply its semantic action once file is ready. */
   async function loadRivePreset(presetName) {
     const definition = RIVE_PRESET_DEFINITIONS[presetName];
     if (!definition) {
@@ -500,6 +531,7 @@ export function initRiveFeature(elements) {
     });
   }
 
+  /** Delete an animation and move selection to a deterministic fallback. */
   function deleteRiveAnimation(animName) {
     const wasSelected = riveUiState.selectedAnimation === animName;
     for (const key of Object.keys(RIVE_PRESET_DEFINITIONS)) {
@@ -558,6 +590,7 @@ export function initRiveFeature(elements) {
     }
   }
 
+  /** Delete one state preset and reload fallback state when needed. */
   function deleteRiveState(presetKey, animName) {
     const definition = RIVE_PRESET_DEFINITIONS[presetKey];
     if (!definition) {

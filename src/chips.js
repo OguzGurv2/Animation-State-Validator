@@ -1,3 +1,6 @@
+/**
+ * Convert a file-like token into a human-readable UI label.
+ */
 export function formatFileNameLabel(fileName) {
   return fileName
     .replace(/\.json$/i, "")
@@ -9,12 +12,18 @@ export function formatFileNameLabel(fileName) {
     .join(" ");
 }
 
+/**
+ * Remove all child nodes from an element if it exists.
+ */
 export function clearElementChildren(element) {
   if (element) {
     element.innerHTML = "";
   }
 }
 
+/**
+ * Create a passive metadata chip or a button-like chip.
+ */
 export function createMetaChip(label, { clickable = false } = {}) {
   const chip = document.createElement(clickable ? "button" : "span");
   chip.className = clickable
@@ -28,6 +37,9 @@ export function createMetaChip(label, { clickable = false } = {}) {
   return chip;
 }
 
+/**
+ * Create a chip group with optional select, add-state, and delete actions.
+ */
 export function createAnimChipGroup(
   label,
   { onSelect, onAddState, onDelete } = {},
@@ -74,6 +86,9 @@ export function createAnimChipGroup(
   return { group };
 }
 
+/**
+ * Apply selected styling and aria state for chips tracked in a key->element map.
+ */
 export function toggleButtonMapSelection(buttonMap, selectedKey) {
   buttonMap.forEach((button, key) => {
     if (!button) {
@@ -86,6 +101,9 @@ export function toggleButtonMapSelection(buttonMap, selectedKey) {
   });
 }
 
+/**
+ * Synchronize playback controls with current playback and load state.
+ */
 export function renderPlaybackControls({
   controlButtons,
   playbackState,
@@ -103,6 +121,9 @@ export function renderPlaybackControls({
   });
 }
 
+/**
+ * Add iconography, labels, and role classes to playback control buttons.
+ */
 export function decoratePlaybackButtons(controlButtons, roleClassName) {
   const buttonConfig = {
     playing: {

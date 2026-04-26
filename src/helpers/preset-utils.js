@@ -1,9 +1,15 @@
+/**
+ * Return [presetKey, definition] entries for a specific animation name.
+ */
 export function getPresetsForAnimation(definitions, animName) {
   return Object.entries(definitions).filter(
     ([, definition]) => definition.animationName === animName,
   );
 }
 
+/**
+ * Choose a preset key for an animation, prioritizing idle.json when available.
+ */
 export function getPreferredPresetFromDefinitions(definitions, animName) {
   const presetsForAnimation = getPresetsForAnimation(definitions, animName);
 
@@ -21,6 +27,9 @@ export function getPreferredPresetFromDefinitions(definitions, animName) {
   return presetsForAnimation[0][0];
 }
 
+/**
+ * Select the app-level default preset from the first known animation.
+ */
 export function getDefaultPresetFromDefinitions(definitions) {
   const animationNames = [
     ...new Set(
@@ -35,6 +44,9 @@ export function getDefaultPresetFromDefinitions(definitions) {
   return getPreferredPresetFromDefinitions(definitions, animationNames[0]);
 }
 
+/**
+ * Determine which animation should remain active after a delete operation.
+ */
 export function getNextAnimationAfterDelete({
   remainingAnimations,
   wasSelected,

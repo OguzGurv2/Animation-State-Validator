@@ -1,3 +1,6 @@
+/**
+ * Build a controller around the Add Lottie modal lifecycle and validation.
+ */
 export function createLottieModalController({
   addLottieModalEl,
   closeAddLottieModalBtn,
@@ -13,6 +16,7 @@ export function createLottieModalController({
   let modalMode = "add";
   let modalTargetAnimName = null;
 
+  // Each row captures one state name + JSON source pair.
   function createModalStateRow() {
     const row = document.createElement("div");
     row.className = "modal-state-row";
@@ -72,6 +76,7 @@ export function createLottieModalController({
     return row;
   }
 
+  /** Display an inline validation or processing error in the modal. */
   function showModalError(message) {
     if (modalErrorEl) {
       modalErrorEl.textContent = message;
@@ -79,6 +84,7 @@ export function createLottieModalController({
     }
   }
 
+  /** Reset modal error UI back to a clean state. */
   function hideModalError() {
     if (modalErrorEl) {
       modalErrorEl.textContent = "";
@@ -86,6 +92,7 @@ export function createLottieModalController({
     }
   }
 
+  /** Collect valid state rows, skipping rows without a selected file. */
   function collectStateEntries() {
     const rows = modalStatesList?.querySelectorAll(".modal-state-row") ?? [];
     const stateEntries = [];
@@ -108,6 +115,7 @@ export function createLottieModalController({
     return stateEntries;
   }
 
+  /** Open modal in either add-animation mode or add-states mode. */
   function open(options = {}) {
     if (!addLottieModalEl) {
       return;
@@ -155,10 +163,12 @@ export function createLottieModalController({
     addLottieModalEl.showModal();
   }
 
+  /** Close modal regardless of current mode. */
   function close() {
     addLottieModalEl?.close();
   }
 
+  // Validate inputs, delegate persistence to onConfirm, then close on success.
   async function handleConfirm() {
     let animName;
     if (modalMode === "add-states") {

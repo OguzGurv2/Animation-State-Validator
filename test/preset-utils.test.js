@@ -6,6 +6,7 @@ import {
   getPreferredPresetFromDefinitions,
 } from "../src/helpers/preset-utils.js";
 
+// Guards idle-first selection behavior for per-animation preset picking.
 test("idle-first preset selection prioritizes idle.json", () => {
   const definitions = {
     Hover: {
@@ -26,6 +27,7 @@ test("idle-first preset selection prioritizes idle.json", () => {
   assert.equal(preset, "Idle");
 });
 
+// Ensures app boot picks the first animation and still prefers idle.
 test("default preset selection uses first animation and idle-first rule", () => {
   const definitions = {
     Hover: {
@@ -46,6 +48,7 @@ test("default preset selection uses first animation and idle-first rule", () => 
   assert.equal(preset, "Idle");
 });
 
+// Validates deterministic fallback when the active animation is removed.
 test("deletion fallback picks first remaining animation when active animation was deleted", () => {
   const nextAnim = getNextAnimationAfterDelete({
     remainingAnimations: ["anim-b", "anim-c"],
@@ -56,6 +59,7 @@ test("deletion fallback picks first remaining animation when active animation wa
   assert.equal(nextAnim, "anim-b");
 });
 
+// Preserves current selection when a different animation is deleted.
 test("deletion fallback keeps current selection when deleted animation was not selected", () => {
   const nextAnim = getNextAnimationAfterDelete({
     remainingAnimations: ["anim-a", "anim-b"],
@@ -66,6 +70,7 @@ test("deletion fallback keeps current selection when deleted animation was not s
   assert.equal(nextAnim, "anim-b");
 });
 
+// Handles empty collections without throwing and reports null selection.
 test("deletion fallback returns null when no animations remain", () => {
   const nextAnim = getNextAnimationAfterDelete({
     remainingAnimations: [],
