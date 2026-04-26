@@ -178,4 +178,4 @@ Suggested additional tests (future):
 
 ## License / Usage
 
-No explicit license is currently defined in this repository. Add a `LICENSE` file if you plan to distribute or reuse this project externally.
+This is a public project, and open to use for everyone!
