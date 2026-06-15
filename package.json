@@ -1,5 +1,8 @@
 {
-    "name": "lottie-rive-test-env",
+    "name": "animation-state-validator",
+    "description": "A Vite playground for validating Lottie and Rive animation states in-browser.",
+    "author": "OguzGurv2",
+    "homepage": "https://github.com/OguzGurv2/Animation-State-Validator",
     "private": true,
     "version": "0.1.0",
     "type": "module",

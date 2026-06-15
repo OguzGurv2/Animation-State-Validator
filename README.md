@@ -1,6 +1,8 @@
-# Lottie + Rive Playground
+# Animation State Validator
 
 A focused Vite playground for validating animation behavior across **Lottie** and **Rive** in one page.
+
+> **Tip for viewers:** Record a short GIF of the state-switching and playback controls and drop it here before sharing — it makes the project immediately tangible.
 
 Use this repo when you want to:
 
@@ -48,7 +50,7 @@ npm run dev
 
 The dev server is configured to run on:
 
-- `http://localhost:300/`
+- `http://localhost:3000/`
 
 `vite.config.js` enforces `strictPort: true`, so Vite will fail instead of silently switching ports.
 
