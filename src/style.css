@@ -8,17 +8,22 @@
   --accent-soft: #d9f1ec;
   --danger: #b3261e;
   --line: #d5e0db;
-  --viewport-height: 280px;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--ink);
+  overflow: hidden;
   background:
     radial-gradient(circle at 20% 10%, #e6f8f2, transparent 28%),
     radial-gradient(circle at 90% 90%, #dff3ff, transparent 24%),
@@ -27,8 +32,12 @@ body {
 
 .page {
   max-width: 1200px;
+  height: 100vh;
   margin: 0 auto;
-  padding: 2rem 1rem 2.5rem;
+  padding: 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .page-header h1 {
@@ -42,7 +51,9 @@ body {
 }
 
 .grid {
-  margin-top: 1.25rem;
+  margin-top: 0.75rem;
+  flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1rem;
@@ -54,6 +65,10 @@ body {
   border-radius: 14px;
   padding: 1rem;
   box-shadow: 0 10px 30px -24px rgba(3, 53, 58, 0.55);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .panel h2 {
@@ -160,8 +175,8 @@ button:disabled {
 
 .viewport {
   width: 100%;
-  height: var(--viewport-height);
-  min-height: var(--viewport-height);
+  flex: 1;
+  min-height: 0;
   margin-top: 0.8rem;
   border: 1px dashed #b6ccc4;
   border-radius: 10px;
@@ -170,8 +185,8 @@ button:disabled {
 
 canvas.viewport {
   display: block;
-  height: var(--viewport-height);
-  aspect-ratio: auto;
+  width: 100%;
+  height: 100%;
 }
 
 .actions {
@@ -521,6 +536,32 @@ input.is-error {
 .meta-chip-group.is-selected .chip-action-delete:hover {
   background: rgba(255, 255, 255, 0.2);
   color: #ffffff;
+}
+
+/* ── Footer ─────────────────────────────────────────── */
+
+.page-footer {
+  margin-top: 0.5rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.page-footer p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.03em;
+}
+
+.page-footer a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.page-footer a:hover {
+  opacity: 0.75;
 }
 
 @media (max-width: 600px) {

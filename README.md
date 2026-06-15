@@ -4,6 +4,8 @@ A focused Vite playground for validating animation behavior across **Lottie** an
 
 > **Tip for viewers:** Record a short GIF of the state-switching and playback controls and drop it here before sharing — it makes the project immediately tangible.
 
+![Animation State Validator demo](public/demo.gif)
+
 Use this repo when you want to:
 
 - test animation states quickly in-browser
