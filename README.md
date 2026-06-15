@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/favicons/android-chrome-512x512.png" alt="Animation State Validator logo" width="96" />
+</p>
+
 # Animation State Validator
 
 A focused Vite playground for validating animation behavior across **Lottie** and **Rive** in one page.
