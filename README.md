@@ -1,14 +1,14 @@
 <p align="center">
-  <img src="public/favicons/android-chrome-512x512.png" alt="Animation State Validator logo" width="96" />
+  <img src="public/favicons/android-chrome-512x512.png" alt="Animation State Validator logo" width="192" />
 </p>
 
-# Animation State Validator
+<p align="center">
+  <h1 align="center">Animation State Validator</h1>
+</p>
 
 A focused Vite playground for validating animation behavior across **Lottie** and **Rive** in one page.
 
-> **Tip for viewers:** Record a short GIF of the state-switching and playback controls and drop it here before sharing — it makes the project immediately tangible.
-
-![Animation State Validator demo](public/demo.gif)
+<img src="public/demo.gif" alt="Animation State Validator demo" />
 
 Use this repo when you want to:
 
