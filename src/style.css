@@ -538,7 +538,30 @@ input.is-error {
   color: #ffffff;
 }
 
-/* ── Footer ─────────────────────────────────────────── */
+/* ── Mobile notice ──────────────────────────────────── */
+
+.mobile-notice {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 2rem;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--muted);
+    background: var(--bg);
+  }
+
+  .page {
+    display: none;
+  }
+}
 
 .page-footer {
   margin-top: 0.5rem;
