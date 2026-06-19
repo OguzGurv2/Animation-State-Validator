@@ -1,10 +1,24 @@
-<p align="center">
-  <img src="public/favicons/android-chrome-512x512.png" alt="Animation State Validator logo" width="192" />
-</p>
+<div align="center">
 
-<p align="center">
-  <h1 align="center">Animation State Validator</h1>
-</p>
+<img src="public/favicons/android-chrome-512x512.png" alt="Animation State Validator logo" width="120" />
+
+<br/>
+
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=28&duration=3000&pause=1000&color=7C3AED&center=true&vCenter=true&width=640&lines=Animation+State+Validator;Lottie+%2B+Rive+in+one+page;Test.+Compare.+Prototype.;Open+Source+%26+Free)](https://github.com/OguzGurv2/Animation-State-Validator)
+
+<br/>
+
+[![Vite](https://img.shields.io/badge/Vite_5-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![JavaScript](https://img.shields.io/badge/JavaScript_ESM-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Lottie](https://img.shields.io/badge/lottie--web-00DDB3?style=for-the-badge&logo=airbnb&logoColor=white)](https://airbnb.io/lottie/)
+[![Rive](https://img.shields.io/badge/@rive--app%2Fcanvas-FF5E5B?style=for-the-badge)](https://rive.app/)
+
+[![License](https://img.shields.io/badge/License-Open_Source-7C3AED?style=flat-square)]()
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-7C3AED?style=flat-square)](https://github.com/OguzGurv2/Animation-State-Validator/pulls)
+
+</div>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=7C3AED&height=80&section=header" width="100%"/>
 
 A focused Vite playground for validating animation behavior across **Lottie** and **Rive** in one page.
 
@@ -41,11 +55,13 @@ Both panels provide:
 
 ## Tech Stack
 
-- Runtime: `Vite 5`
-- Language: `JavaScript (ESM)`
-- Lottie engine: `lottie-web`
-- Rive engine: `@rive-app/canvas`
-- Tests: `node:test` + `node:assert/strict`
+| Layer | Technology |
+|---|---|
+| Runtime | [Vite 5](https://vitejs.dev/) |
+| Language | JavaScript (ESM) |
+| Lottie engine | [lottie-web](https://airbnb.io/lottie/) |
+| Rive engine | [@rive-app/canvas](https://rive.app/) |
+| Tests | `node:test` + `node:assert/strict` |
 
 ## Quick Start
 
@@ -62,10 +78,12 @@ The dev server is configured to run on:
 
 ## Scripts
 
-- `npm run dev`: start local development server
-- `npm run build`: create production build in `dist/`
-- `npm run preview`: serve built output locally
-- `npm test`: run utility unit tests
+| Script | Description |
+|---|---|
+| `npm run dev` | Start local development server |
+| `npm run build` | Create production build in `dist/` |
+| `npm run preview` | Serve built output locally |
+| `npm test` | Run utility unit tests |
 
 ## Project Structure
 
@@ -134,11 +152,11 @@ The dev server is configured to run on:
 
 The app follows a few deterministic rules to avoid ambiguous UI behavior:
 
-- Idle-first preset preference:
-  - if `idle.json` exists for an animation, it is the preferred preset
-- Deletion behavior:
-  - if the selected animation/state is deleted, the first valid fallback is auto-selected
-  - if no animation remains, panel state is reset to "No ... loaded"
+| Rule | Behaviour |
+|---|---|
+| **Idle-first preset preference** | If `idle.json` exists for an animation, it is the preferred preset |
+| **Deletion fallback** | If the selected animation/state is deleted, the first valid fallback is auto-selected |
+| **Empty state** | If no animation remains, panel state resets to "No ... loaded" |
 
 These rules are tested in `test/preset-utils.test.js`.
 
@@ -157,11 +175,9 @@ These rules are tested in `test/preset-utils.test.js`.
 2. Import the asset URL in `src/rive.js`.
 3. Add entries to `RIVE_PRESET_DEFINITIONS` with an `actionName`.
 
-Tip: Keep action names semantically consistent (`Idle`, `Hover`, `Click`) to preserve quick-action behavior.
+> Keep action names semantically consistent (`Idle`, `Hover`, `Click`) to preserve quick-action behavior.
 
 ## Testing
-
-Run unit tests:
 
 ```bash
 npm test
@@ -173,17 +189,24 @@ Suggested additional tests (future):
 
 - integration tests for modal validation flow
 - interaction tests for chip selection/deletion
-- Rive quick-action fallback tests (input -> animation -> pointer)
+- Rive quick-action fallback tests (input → animation → pointer)
 
 ## Troubleshooting
 
-- Dev server does not start:
-  - Port `3000` may already be in use (`strictPort: true` prevents auto-switch)
-- Rive preset loads but state does not visibly change:
-  - the source file may use different input/animation naming than `Idle/Hover/Click`
-- Lottie state import fails:
-  - malformed JSON will surface as `Invalid JSON` in modal error area
+| Issue | Solution |
+|---|---|
+| Dev server does not start | Port `3000` may already be in use (`strictPort: true` prevents auto-switch) |
+| Rive preset loads but state does not visibly change | The source file may use different input/animation naming than `Idle/Hover/Click` |
+| Lottie state import fails | Malformed JSON will surface as `Invalid JSON` in modal error area |
 
-## License / Usage
+<img src="https://capsule-render.vercel.app/api?type=waving&color=7C3AED&height=80&section=footer" width="100%"/>
 
-This is a public project, and open to use for everyone!
+<div align="center">
+
+**Built with passion for animation.**
+
+[![Star on GitHub](https://img.shields.io/github/stars/OguzGurv2/Animation-State-Validator?style=social)](https://github.com/OguzGurv2/Animation-State-Validator)
+
+This is a public project, open to use for everyone!
+
+</div>
